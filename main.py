@@ -5,39 +5,61 @@ import csv
 from bs4 import BeautifulSoup
 
 
+def run():
+    return  '\nZ A B B I X    C O N T E N T    P A G E   F I N D E R\n'
+
+
 def findEmails(pages):
+    """
+    Email finder funccion
+    needs: page
+
+    """
+    try:
+        html_page = urllib.request.urlopen(str(pages)) #Request the page html
+        soup = BeautifulSoup(html_page, "html.parser") #Instace BeatifulSoup 
+
+        """
+        Filtering html page
+        """
+
+        filter_soup  = soup.find_all('a', href = True) 
+        len_find = len(filter_soup)
 
 
-    html_page = urllib.request.urlopen(str(pages))
-        
-    soup = BeautifulSoup(html_page, "html.parser")
-        
-    find  = soup.find_all('a', href = True)
-        
-    len_find = len(find)
-        
-    for i in range(len_find):  
-        if find[i]:
-            text = str(find[i])
-            len_text = len(text)
-            position_1 = text.find('mailto:')
-            position_2 = text.find('">')
+        for i in range(len_find):  
+            if filter_soup[i]:
+                text = str(filter_soup[i])
+                position_1 = text.find('mailto:')
+                position_2 = text.find('">')
 
-            if position_1 > 0 :
-                initial = int(position_1) + 7
-                final = int(position_2)
 
-                if position_1 == position_1 :
-                    text_email = text[initial:final]
+                if position_1 > 0 :
+                    initial = int(position_1) + 7
+                    final = int(position_2)
+
+
+                    if position_1 == position_1 :
+                        text_email = text[initial:final]
                     
-                    print(f'    {pages} :\n \n       {text_email}\n \n')
+                        print(f'    {pages} :\n \n       {text_email}\n \n')
 
-                    file_text = open('./output/emails_list.txt', 'a')
-                    file_text.write(f'{text_email},\n')
-                    file_text.close
+                        file_text = open('./output/emails_list.txt', 'a')
+                        file_text.write(f'{text_email},\n')
+                        file_text.close
 
-        else:
-            print(f'{pages} : Not found')
+
+            else:
+                print(f'{pages} : Not found')
+        
+    except:
+        print("-----------------------------------------")
+        print('Error detected:')
+        print('-')
+        print(f"<Error> [{pages}] [Request don't work]")
+        print("-----------------------------------------")
+        
+        
                 
             
 
@@ -46,9 +68,8 @@ def findEmails(pages):
 
 
 if __name__ == "__main__":
-    print( '''
-    Z A B B I X    E M A I L    P A G E   F I N D E R
-    ''')
+
+    print(run())
 
     with open('./input/pages_list.txt') as f:
         lines = f.readlines()
