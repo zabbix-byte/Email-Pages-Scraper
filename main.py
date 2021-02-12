@@ -11,8 +11,9 @@ def run():
 
 def findEmails(pages):
     """
-    Email finder funccion
+    Email finder funcction
     needs: page
+    return output file
 
     """
     try:
