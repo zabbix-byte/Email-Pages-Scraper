@@ -52,7 +52,6 @@ def findEmails(pages):
 
             else:
                 print(f'{pages} : Not found')
-        
     except:
         print("-----------------------------------------")
         print('Error detected:')
@@ -60,16 +59,8 @@ def findEmails(pages):
         print(f"<Error> [{pages}] [Request don't work]")
         print("-----------------------------------------")
         
-        
-                
             
-
-                    
-
-
-
 if __name__ == "__main__":
-
     print(run())
 
     with open('./input/pages_list.txt') as f:
@@ -79,7 +70,6 @@ if __name__ == "__main__":
 
         findEmails(i)
 
-    
     print('''
     ..Finish
     ''')
